@@ -148,18 +148,20 @@ typedef NS_ENUM(NSUInteger, FSCalendarOrientation) {
     return self;
 }
 
+
 - (void)initialize
 {   
     _appearance = [[FSCalendarAppearance alloc] init];
     _appearance.calendar = self;
     
-    _gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    _gregorian = [NSCalendar currentCalendar];
     _components = [[NSDateComponents alloc] init];
     _formatter = [[NSDateFormatter alloc] init];
     _formatter.dateFormat = @"yyyy-MM-dd";
     _locale = [NSLocale currentLocale];
-    _timeZone = [NSTimeZone localTimeZone];
+    _timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
     _firstWeekday = 1;
+
     [self invalidateDateTools];
     
     _today = [self.gregorian dateBySettingHour:0 minute:0 second:0 ofDate:[NSDate date] options:0];
